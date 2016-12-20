@@ -1,7 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "snake.h"
+#include <SDL.h>
+#include "gameerror.h"
 
 class Renderer
 {

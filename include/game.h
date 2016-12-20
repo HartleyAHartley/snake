@@ -1,8 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "snake.h"
+#include <SDL.h>
+
+class Renderer;
 #include "renderer.h"
+#include <iostream>
+
 
 class Game
 {
@@ -44,14 +48,24 @@ class Game
         void Setfullscreen(bool val) { m_fullscreen = val; }
         /** Advance game by a frame */
         void Step();
+        /** Check if game started successfully
+         * \return The current value of init
+         */
+         bool Getinit() { return m_init; }
+         /** Check if game should close
+          * \return The current value of close
+          */
+          bool StayOpen() { return m_open; }
 
     protected:
 
     private:
-        Renderer * m_renderer; //!< Member variable "renderer"
+        Renderer* m_renderer; //!< Member variable "renderer"
         unsigned int m_screenWidth; //!< Member variable "screenWidth"
         unsigned int m_screenHeight; //!< Member variable "screenHeight"
         bool m_fullscreen; //!< Member variable "fullscreen"
+        bool m_init = true; //!< Member variable "init" True if game init was successful.
+        bool m_open = true; //!< Member variable "open" True if game should stay open.
 };
 
 #endif // GAME_H

@@ -1,7 +1,9 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-#include "snake.h"
+#include <exception>
+#include <string>
+#include <SDL.h>
 
 class GameError : public std::exception
 {
