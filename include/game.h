@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "snake.h"
+#include "renderer.h"
 
 class Game
 {

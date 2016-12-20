@@ -23,7 +23,7 @@ Game::~Game()
     delete m_renderer;
 }
 
-Game::Step()
+void Game::Step()
 {
-    m_renderer.Draw();
+    m_renderer->Draw();
 }
