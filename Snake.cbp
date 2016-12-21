@@ -33,9 +33,12 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++14" />
+			<Add option="-m64" />
 			<Add directory="C:/mingw64/x86_64-w64-mingw32/include" />
 		</Compiler>
 		<Linker>
+			<Add option="-m64" />
 			<Add library="mingw32" />
 			<Add library="SDL2main" />
 			<Add library="SDL2.dll" />
@@ -48,13 +51,15 @@
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
+		<Unit filename="include/eventhandler.h" />
 		<Unit filename="include/game.h" />
 		<Unit filename="include/gameerror.h" />
 		<Unit filename="include/renderer.h" />
 		<Unit filename="include/snake.h" />
-		<Unit filename="main.cpp" />
+		<Unit filename="src/eventhandler.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/gameerror.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Unit filename="src/renderer.cpp" />
 		<Extensions>
 			<code_completion />

@@ -3,9 +3,12 @@
 int main( int argc, char * argv[] )
 {
         Game * snake = new Game();
-        if(snake->getinit()){
-            snake->Step();
-            return 0;
+        if(snake->InitError()){
+            return 1;
         }
-        return 1;
+        snake->Draw();
+        while(!snake->quit()){
+            snake->Step();
+        }
+        return 0;
 }

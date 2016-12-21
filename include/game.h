@@ -5,6 +5,8 @@
 
 class Renderer;
 #include "renderer.h"
+class EventHandler;
+#include "eventhandler.h"
 #include <iostream>
 
 
@@ -51,21 +53,26 @@ class Game
         /** Check if game started successfully
          * \return The current value of init
          */
-         bool Getinit() { return m_init; }
-         /** Check if game should close
-          * \return The current value of close
-          */
-          bool StayOpen() { return m_open; }
+        bool InitError() { return m_initError; }
+        /** Check if game should close
+         * \return The current value of close
+         */
+        bool quit() { return m_quit; }
+        /** Sets m_quit to true */
+        void close() { m_quit = true; }
+
+        void Draw();
 
     protected:
 
     private:
+        EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
         Renderer* m_renderer; //!< Member variable "renderer"
         unsigned int m_screenWidth; //!< Member variable "screenWidth"
         unsigned int m_screenHeight; //!< Member variable "screenHeight"
         bool m_fullscreen; //!< Member variable "fullscreen"
-        bool m_init = true; //!< Member variable "init" True if game init was successful.
-        bool m_open = true; //!< Member variable "open" True if game should stay open.
+        bool m_initError = false; //!< Member variable "init" True if game init was successful.
+        bool m_quit = false; //!< Member variable "open" True if game should stay open.
 };
 
 #endif // GAME_H
