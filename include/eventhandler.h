@@ -12,10 +12,6 @@ class EventHandler
         EventHandler(Game* gameObj);
         /** Default destructor */
         ~EventHandler();
-        /** Gets non keyboard, mouse, and joystick events
-         * \return Array of events
-         */
-        //TODO: bool* GetEvent();
         /** Event Updater */
         void Update();
 
@@ -27,12 +23,12 @@ class EventHandler
          * \return Returns true if quit event is found
          */
         bool Close();
-        /** Handles Keyboard Events
-         * \param Reference to array of keys
-         * \return Amount of Keys
-         */
-        int getKeys();
+        /** Handles Keyboard Events */
+        void UpdateKeys();
         Game * m_game; //!< Reference to the game eventhandler is attached to.
+        bool m_keys[SDL_NUM_SCANCODES];
+        bool m_keysdown[SDL_NUM_SCANCODES];
+
 };
 
 #endif // EVENTHANDLER_H

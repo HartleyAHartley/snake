@@ -12,7 +12,7 @@ void EventHandler::Update(){
     if(Close()){
         m_game->close();
     }
-    getKeys();
+    UpdateKeys();
 }
 
 bool EventHandler::Close(){
@@ -25,14 +25,16 @@ bool EventHandler::Close(){
     return false;
 }
 
-int EventHandler::getKeys(){
+void EventHandler::GetKeys(){
     int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYUP);
     SDL_Event kybdEvents[numOfKeys];
     SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
     for (int i = numOfKeys; i >= 0; i--){
         if(!kybdEvents[i].key.repeat){
-
+            m_keysdown[kybdEvents[i].key.keysym.scancode] = kybdEvents[i].key.state;
+        } else {
+            m_keysdown[kybdEvents[i].key.keysym.scancode] = false;
+            m_keys[kybdEvents[i].key.keysym.scancode] = kybdEvents[i].key.state;
         }
     }
-    return 0;
 }
