@@ -31,11 +31,8 @@ int EventHandler::getKeys(){
     SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
     for (int i = numOfKeys; i >= 0; i--){
         if(!kybdEvents[i].key.repeat){
-            std::cout << SDL_GetKeyName( kybdEvents[i].key.keysym.sym);
+
         }
-    }
-    if(numOfKeys){
-        std::cout << std::endl;
     }
     return 0;
 }
