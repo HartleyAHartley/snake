@@ -25,7 +25,7 @@ bool EventHandler::Close(){
     return false;
 }
 
-void EventHandler::GetKeys(){
+void EventHandler::UpdateKeys(){
     int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYUP);
     SDL_Event kybdEvents[numOfKeys];
     SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
@@ -37,4 +37,8 @@ void EventHandler::GetKeys(){
             m_keys[kybdEvents[i].key.keysym.scancode] = kybdEvents[i].key.state;
         }
     }
+}
+
+int EventHandler::RegisterKeyCallback(keyCallback kCB){
+    keyboardCallbacks.insert(kCB);
 }
