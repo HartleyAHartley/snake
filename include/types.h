@@ -1,8 +1,11 @@
-#ifndef KEYBOARDCALLBACK_H
-#define KEYBOARDCALLBACK_H
+#ifndef TYPES_H
+#define TYPES_H
 
 #include <SDL.h>
+
+/** Type Definition for the keyboard callback pointer */
 typedef void (* keyCB) (void);
+
 /** Keyboard CallBack
  * \param pointer to keyCallback callback
  * \param ScanCode for key
@@ -12,8 +15,8 @@ typedef void (* keyCB) (void);
  */
 struct keyCallback {
     keyCB callback;
-    int sc;
-    bool keyDown;
+    int sc = SDL_SCANCODE_UNKNOWN;
+    bool keyDown = false;
     bool operator==(const SDL_Event* e) const {
         if(sc == e->key.keysym.scancode){
             if(e->key.repeat == 0){
@@ -28,4 +31,13 @@ struct keyCallback {
         }
     }
 };
+
+struct renderRect {
+    SDL_Rect rect;
+    int r = 0;
+    int g = 0;
+    int b = 0;
+    int a = 255;
+};
+
 #endif

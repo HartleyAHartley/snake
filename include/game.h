@@ -2,15 +2,14 @@
 #define GAME_H
 
 #include <SDL.h>
-
-class Renderer;
-#include "renderer.h"
-class EventHandler;
-#include "eventhandler.h"
-class GameBoard;
-#include "GameBoard.h"
 #include <iostream>
 
+#include "renderer.h"
+#include "eventhandler.h"
+#include "GameBoard.h"
+
+class EventHandler;
+class GameBoard;
 
 class Game
 {

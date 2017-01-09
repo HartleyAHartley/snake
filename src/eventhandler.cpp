@@ -45,12 +45,15 @@ void EventHandler::UpdateKeys(){
     }
 }
 
-bool EventHandler::SendKeyCallback(SDL_Event* e){
+int EventHandler::SendKeyCallback(SDL_Event* e){
+    int callbacks = 0;
     for(std::list<keyCallback>::iterator j = keyboardCallbacks.begin(); j != keyboardCallbacks.end(); ++j){
         if((*j) == e){
             (*j).callback();
+            callbacks++;
         }
     }
+    return callbacks;
 }
 
 void EventHandler::RegisterKeyCallback(keyCallback kCB){

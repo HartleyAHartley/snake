@@ -2,7 +2,10 @@
 #define RENDERER_H
 
 #include <SDL.h>
+#include <list>
+
 #include "gameerror.h"
+#include "types.h"
 
 class Renderer
 {
@@ -30,13 +33,17 @@ class Renderer
         void Setrenderer(SDL_Renderer * val) { m_renderer = val; }
         /** Draw Game */
         void Draw();
-
+        /** Add Rectangles for rendering */
+        const std::list<renderRect*>::iterator AddRectangle(renderRect * rr);
 
     protected:
 
     private:
+        /** Render a renderRect struct */
+        bool RenderRect(const renderRect * rr);
         SDL_Window * m_window; //!< Member variable "m_window"
         SDL_Renderer * m_renderer; //!< Member variable "m_renderer"
+        std::list<renderRect*> renderRectangles; //!< List of defined rect structs to render.
 };
 
 #endif // SDL_H

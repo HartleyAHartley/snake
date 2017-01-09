@@ -19,32 +19,28 @@ Renderer::~Renderer()
 
 void Renderer::Draw()
 {
-    // Clear the window with a black background
-    SDL_SetRenderDrawColor( m_renderer, 0, 0, 0, 255 );
-    SDL_RenderClear( m_renderer );
-
+    SDL_SetRenderDrawColor(m_renderer, 255, 0, 0, 255);
+    //SDL_RenderPresent( m_renderer );
     // Show the window
-    SDL_RenderPresent( m_renderer );
-
-    int rgb[] = { 203, 203, 203, // Gray
-                  254, 254,  31, // Yellow
-                    0, 255, 255, // Cyan
-                    0, 254,  30, // Green
-                  255,  16, 253, // Magenta
-                  253,   3,   2, // Red
-                   18,  14, 252, // Blue
-                    0,   0,   0  // Black
-                };
-
-    SDL_Rect colorBar;
-    colorBar.x = 0; colorBar.y = 0; colorBar.w = 90; colorBar.h = 480;
-
-    // Render a new color bar every 0.5 seconds
-    for ( int i = 0; i != sizeof rgb / sizeof *rgb; i += 3, colorBar.x += 90 )
-    {
-        SDL_SetRenderDrawColor( m_renderer, rgb[i], rgb[i + 1], rgb[i + 2], 255 );
-        SDL_RenderFillRect( m_renderer, &colorBar );
-        SDL_RenderPresent( m_renderer );
-        SDL_Delay( 50 );
+    for(std::list<renderRect*>::iterator i = renderRectangles.begin(); i != renderRectangles.end(); ++i){
+        RenderRect((*i));
     }
+    SDL_RenderPresent( m_renderer );
+}
+
+bool Renderer::RenderRect(const renderRect * rr){
+    if(SDL_SetRenderDrawColor(m_renderer, rr->r, rr->g, rr->b, rr->a)){
+        return false;
+    } else {
+        if(SDL_RenderFillRect(m_renderer, &rr->rect)){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+const std::list<renderRect*>::iterator Renderer::AddRectangle(renderRect * rr){
+    return renderRectangles.insert(renderRectangles.end(), rr);
+    //TODO: At some point this should return some kind of a reference so that the rectangle can be removed from the list later.
 }

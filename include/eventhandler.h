@@ -4,7 +4,9 @@
 #include <SDL.h>
 #include <list>
 #include <game.h>
-#include "keyboardCallback.h"
+
+#include "types.h"
+
 class Game;
 
 class EventHandler
@@ -33,7 +35,7 @@ class EventHandler
         /** Handles Keyboard Events */
         void UpdateKeys();
         /** Handles Sending out correct Callbacks */
-        bool SendKeyCallback(SDL_Event* e);
+        int SendKeyCallback(SDL_Event* e);
         Game * m_game; //!< Reference to the game eventhandler is attached to.
         bool m_keys[SDL_NUM_SCANCODES]; //!< Scancode keys that are held down.
         bool m_keysdown[SDL_NUM_SCANCODES]; //!< Scancode keys that are pressed (First Frame Only).
