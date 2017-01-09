@@ -3,6 +3,10 @@
 #include <iostream>
 EventHandler::EventHandler(Game* g){
     m_game = g;
+    for(int i=0; i < SDL_NUM_SCANCODES; i++){
+        m_keys[i] = false;
+        m_keysdown[i] = false;
+    }
 }
 
 EventHandler::~EventHandler(){}
@@ -13,6 +17,7 @@ void EventHandler::Update(){
         m_game->close();
     }
     UpdateKeys();
+    SDL_Delay(100);
 }
 
 bool EventHandler::Close(){
@@ -26,10 +31,11 @@ bool EventHandler::Close(){
 }
 
 void EventHandler::UpdateKeys(){
-    int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYUP);
+    int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYDOWN);
     SDL_Event kybdEvents[numOfKeys];
-    SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
-    for (int i = numOfKeys; i >= 0; i--){
+    SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYDOWN);
+    for (int i = 0; i < numOfKeys; i++){
+        SendKeyCallback(&kybdEvents[i]);
         if(!kybdEvents[i].key.repeat){
             m_keysdown[kybdEvents[i].key.keysym.scancode] = kybdEvents[i].key.state;
         } else {
@@ -39,6 +45,14 @@ void EventHandler::UpdateKeys(){
     }
 }
 
-int EventHandler::RegisterKeyCallback(keyCallback kCB){
-    keyboardCallbacks.insert(kCB);
+bool EventHandler::SendKeyCallback(SDL_Event* e){
+    for(std::list<keyCallback>::iterator j = keyboardCallbacks.begin(); j != keyboardCallbacks.end(); ++j){
+        if((*j) == e){
+            (*j).callback();
+        }
+    }
+}
+
+void EventHandler::RegisterKeyCallback(keyCallback kCB){
+    keyboardCallbacks.insert(keyboardCallbacks.end(), kCB);
 }

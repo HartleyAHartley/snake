@@ -7,6 +7,8 @@ class Renderer;
 #include "renderer.h"
 class EventHandler;
 #include "eventhandler.h"
+class GameBoard;
+#include "GameBoard.h"
 #include <iostream>
 
 
@@ -68,6 +70,7 @@ class Game
     private:
         EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
         Renderer* m_renderer; //!< Member variable "renderer"
+        GameBoard* m_gameBoard; //!< Pointer to GameBoard
         unsigned int m_screenWidth; //!< Member variable "screenWidth"
         unsigned int m_screenHeight; //!< Member variable "screenHeight"
         bool m_fullscreen; //!< Member variable "fullscreen"

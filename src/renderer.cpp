@@ -45,6 +45,6 @@ void Renderer::Draw()
         SDL_SetRenderDrawColor( m_renderer, rgb[i], rgb[i + 1], rgb[i + 2], 255 );
         SDL_RenderFillRect( m_renderer, &colorBar );
         SDL_RenderPresent( m_renderer );
-        SDL_Delay( 500 );
+        SDL_Delay( 50 );
     }
 }

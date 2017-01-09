@@ -16,6 +16,7 @@ Game::Game()
         m_initError = true;
     }
     m_eventHandler = new EventHandler(this);
+    m_gameBoard = new GameBoard(m_eventHandler);
 }
 
 Game::Game(unsigned int w, unsigned int h, bool f)
@@ -25,6 +26,7 @@ Game::Game(unsigned int w, unsigned int h, bool f)
     m_fullscreen = true;
 
     m_renderer = new Renderer( SDL_INIT_VIDEO | SDL_INIT_TIMER, w, h, false);
+    m_gameBoard = new GameBoard(m_eventHandler);
 }
 
 Game::~Game()

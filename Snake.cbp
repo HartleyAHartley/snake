@@ -24,6 +24,7 @@
 					<Add option="-Wextra" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -36,6 +37,7 @@
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-flto" />
 					<Add option="-O3" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-flto" />
@@ -64,11 +66,14 @@
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
+		<Unit filename="include/GameBoard.h" />
 		<Unit filename="include/eventhandler.h" />
 		<Unit filename="include/game.h" />
 		<Unit filename="include/gameerror.h" />
+		<Unit filename="include/keyboardCallback.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/renderer.h" />
+		<Unit filename="src/GameBoard.cpp" />
 		<Unit filename="src/eventhandler.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/gameerror.cpp" />
