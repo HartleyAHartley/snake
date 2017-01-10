@@ -2,6 +2,7 @@
 #define GAMEBOARD_H
 
 #include <iostream>
+#include <stdio.h>
 #include "types.h"
 #include "eventhandler.h"
 
@@ -12,7 +13,7 @@ class GameBoard
     public:
         GameBoard(EventHandler* eHandler, Renderer* render);
         ~GameBoard();
-        void jKeyCallBack();
+        void jKeyCallBack(uint64_t * context);
     protected:
 
     private:

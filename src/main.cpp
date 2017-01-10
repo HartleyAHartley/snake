@@ -6,9 +6,9 @@ int main( int argc, char * argv[] )
         if(snake->InitError()){
             return 1;
         }
-        snake->Draw();
         while(!snake->quit()){
             snake->Step();
+            snake->Draw();
         }
         return 0;
 }

@@ -19,11 +19,13 @@ Renderer::~Renderer()
 
 void Renderer::Draw()
 {
-    SDL_SetRenderDrawColor(m_renderer, 255, 0, 0, 255);
-    //SDL_RenderPresent( m_renderer );
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+    SDL_RenderClear( m_renderer );
     // Show the window
     for(std::list<renderRect*>::iterator i = renderRectangles.begin(); i != renderRectangles.end(); ++i){
-        RenderRect((*i));
+        if((*i)->render){
+            RenderRect((*i));
+        }
     }
     SDL_RenderPresent( m_renderer );
 }

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <list>
+#include <map>
 #include <game.h>
 
 #include "types.h"
@@ -22,7 +23,7 @@ class EventHandler
          * \param reference to keyCallback struct
          * \return Number of successful Callbacks registered
          */
-        void RegisterKeyCallback(keyCallback kCB);
+        void RegisterKeyCallback(keyCallback * kCB);
 
 
     protected:
@@ -37,9 +38,8 @@ class EventHandler
         /** Handles Sending out correct Callbacks */
         int SendKeyCallback(SDL_Event* e);
         Game * m_game; //!< Reference to the game eventhandler is attached to.
-        bool m_keys[SDL_NUM_SCANCODES]; //!< Scancode keys that are held down.
-        bool m_keysdown[SDL_NUM_SCANCODES]; //!< Scancode keys that are pressed (First Frame Only).
-        std::list<keyCallback> keyboardCallbacks; //!< List of callbacks to the keyboard.
+        std::map<int, bool> m_keys; //!< Scancode keys that are held down.
+        std::list<keyCallback*> keyboardCallbacks; //!< List of callbacks to the keyboard.
 
 };
 
