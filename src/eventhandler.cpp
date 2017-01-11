@@ -16,7 +16,6 @@ void EventHandler::Update(){
         m_game->close();
     }
     UpdateKeys();
-    SDL_Delay(100);
 }
 
 bool EventHandler::Close(){
@@ -43,8 +42,7 @@ int EventHandler::SendKeyCallback(SDL_Event* e){
     int callbacks = 0;
     for(std::list<keyCallback*>::iterator j = keyboardCallbacks.begin(); j != keyboardCallbacks.end(); ++j){
         if(*(*j) == e){
-            keyCallback k = (*(*j));
-            (*j)->callback(k.rbxRegister);
+            (*j)->callback(e->key.keysym.scancode);
             callbacks++;
         }
     }

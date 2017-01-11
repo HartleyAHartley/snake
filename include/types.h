@@ -2,9 +2,10 @@
 #define TYPES_H
 
 #include <SDL.h>
+#include <functional>
 
 /** Type Definition for the keyboard callback pointer */
-typedef void (* keyCB) (uint64_t rbxRegister);
+typedef std::function<void(int)> keyCB;
 
 /** Keyboard CallBack
  * \param pointer to keyCallback callback
@@ -16,7 +17,6 @@ typedef void (* keyCB) (uint64_t rbxRegister);
 struct keyCallback {
     keyCB callback;
     int sc = SDL_SCANCODE_UNKNOWN;
-    uint64_t rbxRegister;
     bool keyDown = false;
     bool operator==(const SDL_Event* e) const {
         if(sc == e->key.keysym.scancode){
@@ -41,5 +41,6 @@ struct renderRect {
     int a = 255;
     bool render = true;
 };
+
 
 #endif
