@@ -4,7 +4,7 @@
 EventHandler::EventHandler(Game* g){
     m_game = g;
     for(int i=0; i < SDL_NUM_SCANCODES; i++){
-        m_keys[i] = false;
+        m_keys[i] = -1;
     }
 }
 
@@ -29,24 +29,28 @@ bool EventHandler::Close(){
 }
 
 void EventHandler::UpdateKeys(){
-    int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYDOWN);
+    int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYUP);
     SDL_Event kybdEvents[numOfKeys];
-    SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYDOWN);
+    SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
     for (int i = 0; i < numOfKeys; i++){
-        SendKeyCallback(&kybdEvents[i]);
-        m_keys[kybdEvents[i].key.keysym.scancode] = kybdEvents[i].key.state;
-    }
-}
-
-int EventHandler::SendKeyCallback(SDL_Event* e){
-    int callbacks = 0;
-    for(std::list<keyCallback*>::iterator j = keyboardCallbacks.begin(); j != keyboardCallbacks.end(); ++j){
-        if(*(*j) == e){
-            (*j)->callback(e->key.keysym.scancode);
-            callbacks++;
+        if(kybdEvents[i].key.state == SDL_PRESSED){
+            m_keys[kybdEvents[i].key.keysym.scancode] = 0;
+        } else if (kybdEvents[i].key.state == SDL_RELEASED) {
+            m_keys[kybdEvents[i].key.keysym.scancode] = -1;
         }
     }
-    return callbacks;
+    for(int i = 0; i < SDL_NUM_SCANCODES; i++){
+        if(m_keys[i] > -1){
+            for(auto const& j : keyboardCallbacks){
+                if((*j).sc == i && !(*j).keyDown){
+                    (*j).callback(i);
+                } else if((*j).keyDown && m_keys[i] == 0){
+                    (*j).callback(i);
+                }
+            }
+            m_keys[i]++;
+        }
+    }
 }
 
 void EventHandler::RegisterKeyCallback(keyCallback * kCB){

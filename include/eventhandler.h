@@ -35,10 +35,8 @@ class EventHandler
         bool Close();
         /** Handles Keyboard Events */
         void UpdateKeys();
-        /** Handles Sending out correct Callbacks */
-        int SendKeyCallback(SDL_Event* e);
         Game * m_game; //!< Reference to the game eventhandler is attached to.
-        std::map<int, bool> m_keys; //!< Scancode keys that are held down.
+        int m_keys[SDL_NUM_SCANCODES]; //!< Scancode keys that are held down.
         std::list<keyCallback*> keyboardCallbacks; //!< List of callbacks to the keyboard.
 
 };

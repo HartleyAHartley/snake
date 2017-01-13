@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <functional>
+#include <map>
 
 /** Type Definition for the keyboard callback pointer */
 typedef std::function<void(int)> keyCB;
@@ -10,7 +11,7 @@ typedef std::function<void(int)> keyCB;
 /** Keyboard CallBack
  * \param pointer to keyCallback callback
  * \param ScanCode for key
- * \param Greater than 1 for keydown
+ * \param If True only returns callback on the first frame of keypress.
  * \param minKey for callback
  * \param maxKey for callback
  */
@@ -18,19 +19,6 @@ struct keyCallback {
     keyCB callback;
     int sc = SDL_SCANCODE_UNKNOWN;
     bool keyDown = false;
-    bool operator==(const SDL_Event* e) const {
-        if(sc == e->key.keysym.scancode){
-            if(e->key.repeat == 0){
-                return true;
-            } else if(keyDown){
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
 };
 
 struct renderRect {
