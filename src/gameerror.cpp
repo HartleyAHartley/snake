@@ -2,21 +2,17 @@
 
 GameError::GameError() :
     exception(),
-    msg( SDL_GetError() )
-{
+    msg( SDL_GetError() ) {
 }
 
 GameError::GameError( const std::string & m ) :
     exception(),
-    msg( m )
-{
+    msg( m ) {
 }
 
-GameError::~GameError() throw()
-{
+GameError::~GameError() throw() {
 }
 
-const char * GameError::what() const throw()
-{
+const char * GameError::what() const throw() {
     return msg.c_str();
 }

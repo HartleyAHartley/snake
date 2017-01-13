@@ -1,26 +1,26 @@
 #include "eventhandler.h"
 
 #include <iostream>
-EventHandler::EventHandler(Game* g){
+EventHandler::EventHandler(Game* g) {
     m_game = g;
-    for(int i=0; i < SDL_NUM_SCANCODES; i++){
+    for(int i=0; i < SDL_NUM_SCANCODES; i++) {
         m_keys[i] = -1;
     }
 }
 
-EventHandler::~EventHandler(){}
+EventHandler::~EventHandler() {}
 
-void EventHandler::Update(){
+void EventHandler::Update() {
     SDL_PumpEvents();
-    if(Close()){
+    if(Close()) {
         m_game->close();
     }
     UpdateKeys();
 }
 
-bool EventHandler::Close(){
+bool EventHandler::Close() {
     SDL_Event e;
-    if(SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_QUIT, SDL_QUIT)){
+    if(SDL_PeepEvents(&e, 1, SDL_GETEVENT, SDL_QUIT, SDL_QUIT)) {
         if (e.type == SDL_QUIT) {
             return true;
         }
@@ -28,25 +28,25 @@ bool EventHandler::Close(){
     return false;
 }
 
-void EventHandler::UpdateKeys(){
+void EventHandler::UpdateKeys() {
     int numOfKeys = SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_KEYDOWN, SDL_KEYUP);
     SDL_Event kybdEvents[numOfKeys];
     SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
-    for (int i = 0; i < numOfKeys; i++){
-        if(!kybdEvents[i].key.repeat){
-            if(kybdEvents[i].key.state == SDL_PRESSED){
+    for (int i = 0; i < numOfKeys; i++) {
+        if(!kybdEvents[i].key.repeat) {
+            if(kybdEvents[i].key.state == SDL_PRESSED) {
                 m_keys[kybdEvents[i].key.keysym.scancode] = 0;
             } else if (kybdEvents[i].key.state == SDL_RELEASED) {
                 m_keys[kybdEvents[i].key.keysym.scancode] = -1;
             }
         }
     }
-    for(int i = 0; i < SDL_NUM_SCANCODES; i++){
-        if(m_keys[i] > -1){
-            for(auto const& j : keyboardCallbacks){
-                if((*j).sc == i && !(*j).keyDown){
+    for(int i = 0; i < SDL_NUM_SCANCODES; i++) {
+        if(m_keys[i] > -1) {
+            for(auto const& j : keyboardCallbacks) {
+                if((*j).sc == i && !(*j).keyDown) {
                     (*j).callback(i);
-                } else if((*j).keyDown && m_keys[i] == 0){
+                } else if((*j).keyDown && m_keys[i] == 0) {
                     (*j).callback(i);
                 }
             }
@@ -55,6 +55,6 @@ void EventHandler::UpdateKeys(){
     }
 }
 
-void EventHandler::RegisterKeyCallback(keyCallback * kCB){
+void EventHandler::RegisterKeyCallback(keyCallback * kCB) {
     keyboardCallbacks.insert(keyboardCallbacks.end(), kCB);
 }
