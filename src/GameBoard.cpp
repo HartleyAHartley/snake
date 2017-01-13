@@ -10,7 +10,7 @@ GameBoard::GameBoard(EventHandler* eHandler, Renderer* render)
     int sc[4] = {SDL_SCANCODE_W, SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D};
     for(int i = 0; i < 4; i++){
         m_KeyCB[i].callback = std::bind(&KeyCallBack, this, _1);
-        m_KeyCB[i].keyDown = false;
+        m_KeyCB[i].keyDown = true;
         m_KeyCB[i].sc = sc[i];
         m_eventHandler->RegisterKeyCallback(&m_KeyCB[i]);
     }

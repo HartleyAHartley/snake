@@ -33,10 +33,12 @@ void EventHandler::UpdateKeys(){
     SDL_Event kybdEvents[numOfKeys];
     SDL_PeepEvents(kybdEvents, numOfKeys, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP);
     for (int i = 0; i < numOfKeys; i++){
-        if(kybdEvents[i].key.state == SDL_PRESSED){
-            m_keys[kybdEvents[i].key.keysym.scancode] = 0;
-        } else if (kybdEvents[i].key.state == SDL_RELEASED) {
-            m_keys[kybdEvents[i].key.keysym.scancode] = -1;
+        if(!kybdEvents[i].key.repeat){
+            if(kybdEvents[i].key.state == SDL_PRESSED){
+                m_keys[kybdEvents[i].key.keysym.scancode] = 0;
+            } else if (kybdEvents[i].key.state == SDL_RELEASED) {
+                m_keys[kybdEvents[i].key.keysym.scancode] = -1;
+            }
         }
     }
     for(int i = 0; i < SDL_NUM_SCANCODES; i++){
