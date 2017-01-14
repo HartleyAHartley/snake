@@ -1,28 +1,17 @@
 #include "gameboard.h"
 
-GameBoard::GameBoard(EventHandler* eHandler, Renderer* render) {
-    using namespace std::placeholders; // for `_1`
+GameBoard::GameBoard(Game* g) {
 
-    m_eventHandler = eHandler;
-    m_renderer = render;
+    m_game = g;
 
-    int sc[4] = {SDL_SCANCODE_W, SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D};
-    for(int i = 0; i < 4; i++) {
-        m_KeyCB[i].callback = std::bind(&KeyCallBack, this, _1);
-        m_KeyCB[i].keyDown = true;
-        m_KeyCB[i].sc = sc[i];
-        m_eventHandler->RegisterKeyCallback(&m_KeyCB[i]);
-    }
-
-
-    m_board.rect.x = 0;
-    m_board.rect.y = 0;
-    m_board.rect.w = 100;
-    m_board.rect.h = 100;
-    m_board.r = 240;
-    m_board.g = 56;
+    m_board.rect.x = 200;
+    m_board.rect.y = 200;
+    m_board.rect.w = 10;
+    m_board.rect.h = 10;
+    m_board.r = 56;
+    m_board.g = 23;
     m_board.b = 255;
-    m_renderer->AddRectangle(&m_board);
+    m_game->Getrenderer()->AddRectangle(&m_board);
 }
 
 GameBoard::~GameBoard() {

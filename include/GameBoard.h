@@ -3,22 +3,25 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "types.h"
-#include "eventhandler.h"
 #include <functional>
 
-class EventHandler;
+#include "types.h"
+#include "eventhandler.h"
+#include "gameobject.h"
+#include "game.h"
 
-class GameBoard {
+class Game;
+
+class GameBoard : public GameObject
+{
 public:
-    GameBoard(EventHandler* eHandler, Renderer* render);
-    ~GameBoard();
+    GameBoard(Game* g);
+    virtual ~GameBoard();
     void KeyCallBack(int sc);
 protected:
 
 private:
-    EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
-    Renderer* m_renderer; //!< Pointer to renderer Object
+    Game* m_game; //!< Pointer to game object
     renderRect m_board; //!< Struct for holding rectangle rendering info
     keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
 

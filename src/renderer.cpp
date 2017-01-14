@@ -4,9 +4,16 @@ Renderer::Renderer(Uint32 flags, unsigned int h, unsigned int w, bool f) {
     if ( SDL_Init( flags ) != 0 )
         throw GameError();
 
-    if ( SDL_CreateWindowAndRenderer( w, h, SDL_WINDOW_SHOWN,
+
+    if(f){
+        if ( SDL_CreateWindowAndRenderer( w, h, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP,
                                       &m_window, &m_renderer ) != 0 )
-        throw GameError();
+            throw GameError();
+    } else{
+        if ( SDL_CreateWindowAndRenderer( w, h, SDL_WINDOW_SHOWN,
+                                          &m_window, &m_renderer ) != 0 )
+            throw GameError();
+    }
 }
 
 Renderer::~Renderer() {
@@ -19,9 +26,9 @@ void Renderer::Draw() {
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear( m_renderer );
     // Show the window
-    for(std::list<renderRect*>::iterator i = renderRectangles.begin(); i != renderRectangles.end(); ++i) {
-        if((*i)->render) {
-            RenderRect((*i));
+    for(const auto& i : renderRectangles) {
+        if((*i).render) {
+            RenderRect(&(*i));
         }
     }
     SDL_RenderPresent( m_renderer );

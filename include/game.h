@@ -3,24 +3,25 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <list>
 
 #include "renderer.h"
 #include "eventhandler.h"
-#include "GameBoard.h"
+#include "Snake.h"
+#include "gameboard.h"
 
 class EventHandler;
+class Snake;
 class GameBoard;
 
 class Game {
 public:
-    /** Default constructor */
-    Game();
     /** Define Width, Height, and Fullscreen
      * \param w Width
      * \param h Height
      * \param f Fullscreen
      */
-    Game(unsigned int w, unsigned int h, bool f);
+    Game(unsigned int w=640, unsigned int h=480, bool f=false);
     /** Default destructor */
     ~Game();
 
@@ -78,6 +79,24 @@ public:
     void close() {
         m_quit = true;
     }
+    /** Returns eventHandler
+     * \return The pointer to the eventHandler
+     */
+    EventHandler* GeteventHandler() {
+        return m_eventHandler;
+    }
+    /** Returns renderer
+     * \return The pointer to the renderer
+     */
+    Renderer* Getrenderer() {
+        return m_renderer;
+    }
+    /** Returns GameObject List
+     * \return The pointer to the GameObject List
+     */
+    std::list<GameObject*>* GetGameObjects() {
+        return &m_gameobjects;
+    }
 
     void Draw();
 
@@ -86,7 +105,7 @@ protected:
 private:
     EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
     Renderer* m_renderer; //!< Member variable "renderer"
-    GameBoard* m_gameBoard; //!< Pointer to GameBoard
+    std::list<GameObject*> m_gameobjects; //!< List of GameObjects
     unsigned int m_screenWidth; //!< Member variable "screenWidth"
     unsigned int m_screenHeight; //!< Member variable "screenHeight"
     bool m_fullscreen; //!< Member variable "fullscreen"

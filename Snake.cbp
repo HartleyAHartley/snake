@@ -71,15 +71,19 @@
 		<Unit filename="include/game.h" />
 		<Unit filename="include/gameboard.h" />
 		<Unit filename="include/gameerror.h" />
+		<Unit filename="include/gameobject.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/renderer.h" />
+		<Unit filename="include/snake.h" />
 		<Unit filename="include/types.h" />
 		<Unit filename="src/eventhandler.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/gameboard.cpp" />
 		<Unit filename="src/gameerror.cpp" />
+		<Unit filename="src/gameobject.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/renderer.cpp" />
+		<Unit filename="src/snake.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -1,11 +1,12 @@
 #include "game.h"
 
-Game::Game() {
-    m_screenWidth = 630;
-    m_screenHeight = 480;
-    m_fullscreen = false;
+Game::Game(unsigned int w, unsigned int h, bool f) {
+    m_screenWidth = w;
+    m_screenHeight = h;
+    m_fullscreen = f;
+
     try {
-        m_renderer = new Renderer( SDL_INIT_VIDEO | SDL_INIT_TIMER, m_screenHeight, m_screenWidth, false);
+        m_renderer = new Renderer( SDL_INIT_VIDEO | SDL_INIT_TIMER, m_screenHeight, m_screenWidth, m_fullscreen);
     } catch ( const GameError & err ) {
         std::cerr << "Error while initializing SDL:  "
                   << err.what()
@@ -13,20 +14,13 @@ Game::Game() {
         m_initError = true;
     }
     m_eventHandler = new EventHandler(this);
-    m_gameBoard = new GameBoard(m_eventHandler, m_renderer);
-}
-
-Game::Game(unsigned int w, unsigned int h, bool f) {
-    m_screenWidth = w;
-    m_screenHeight = h;
-    m_fullscreen = true;
-
-    m_renderer = new Renderer( SDL_INIT_VIDEO | SDL_INIT_TIMER, w, h, false);
-    m_gameBoard = new GameBoard(m_eventHandler, m_renderer);
+    m_gameobjects.insert( m_gameobjects.end(), new Snake(this));
+    m_gameobjects.insert( m_gameobjects.end(), new GameBoard(this));
 }
 
 Game::~Game() {
     delete m_renderer;
+    delete m_eventHandler;
 }
 
 void Game::Draw() {
