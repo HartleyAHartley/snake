@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include <functional>
+
 
 class GameObject
 {
@@ -17,6 +19,8 @@ class GameObject
     protected:
         bool operator==(GameObject* obj){return self==obj->getself();}
         unsigned long long self;
+        void collision(std::function<void(GameObject)> collisionCallback);
+        void collisionCB(GameObject obj);
 
     private:
 };

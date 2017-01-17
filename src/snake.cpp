@@ -28,6 +28,11 @@ Snake::~Snake()
     //dtor
 }
 
+void Snake::collisionCB(GameObject obj){
+    std::cout << "test" << std::endl;
+    return;
+}
+
 void Snake::KeyCallBack(int sc) {
     switch (sc) {
     case SDL_SCANCODE_W:
@@ -46,7 +51,6 @@ void Snake::KeyCallBack(int sc) {
         std::cout << "Invaild Scancode";
         return;
     }
-    /*if(collision(GameObject* obj)){
-        obj.destory();
-    }*/
+    using namespace std::placeholders; // for `_1`
+    collision(std::bind(&collisionCB, this, _1));
 }

@@ -9,3 +9,8 @@ GameObject::~GameObject()
 {
     //dtor
 }
+
+void GameObject::collision(std::function<void(GameObject)> collisionCallback){
+    GameObject obj;
+    collisionCallback(obj);
+}

@@ -22,7 +22,9 @@ class Snake : public GameObject
         /** KeyCallBack */
         void KeyCallBack(int sc);
 
+
     protected:
+        virtual void collisionCB(GameObject obj);
 
     private:
         Game* m_game; //!< Pointer to game object
