@@ -46,7 +46,7 @@ void EventHandler::UpdateKeys() {
             for(auto const& j : keyboardCallbacks) {
                 if((*j).sc == i && !(*j).keyDown) {
                     (*j).callback(i);
-                } else if((*j).keyDown && m_keys[i] == 0) {
+                } else if((*j).sc == i && (*j).keyDown && m_keys[i] == 0) {
                     (*j).callback(i);
                 }
             }
