@@ -2,7 +2,10 @@
 #define GAMEOBJECT_H
 
 #include <functional>
+#include <list>
+#include "types.h"
 
+class Game;
 
 class GameObject
 {
@@ -10,7 +13,7 @@ class GameObject
         /** Default constructor */
         GameObject();
         /** Default destructor */
-        ~GameObject();
+        virtual ~GameObject();
         /** Get self identifier */
         unsigned long long getself(){return self;}
         /** Destory this objec */
@@ -19,8 +22,11 @@ class GameObject
     protected:
         bool operator==(GameObject* obj){return self==obj->getself();}
         unsigned long long self;
-        void collision(std::function<void(GameObject)> collisionCallback);
-        void collisionCB(GameObject obj);
+        void collision();
+        virtual void collisionCB(GameObject * obj);
+        Game* m_game; //!< Pointer to game object
+        std::list<renderRect> m_rects; //!< Struct for holding rectangle rendering info
+
 
     private:
 };

@@ -5,12 +5,9 @@
 #include <stdio.h>
 #include <functional>
 
-#include "types.h"
-#include "eventhandler.h"
-#include "gameobject.h"
-#include "game.h"
-
 class Game;
+#include "gameobject.h"
+#include "types.h"
 
 class Snake : public GameObject
 {
@@ -18,17 +15,15 @@ class Snake : public GameObject
         /** Default constructor */
         Snake(Game* g);
         /** Default destructor */
-        virtual ~Snake();
+        ~Snake();
         /** KeyCallBack */
         void KeyCallBack(int sc);
 
 
     protected:
-        virtual void collisionCB(GameObject obj);
+        void collisionCB(GameObject * obj);
 
     private:
-        Game* m_game; //!< Pointer to game object
-        renderRect m_board; //!< Struct for holding rectangle rendering info
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
 };
 

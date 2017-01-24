@@ -1,4 +1,5 @@
 #include "gameobject.h"
+#include "game.h"
 
 GameObject::GameObject()
 {
@@ -10,7 +11,22 @@ GameObject::~GameObject()
     //dtor
 }
 
-void GameObject::collision(std::function<void(GameObject)> collisionCallback){
-    GameObject obj;
-    collisionCallback(obj);
+void GameObject::collisionCB(GameObject * obj){
+    return;
+}
+
+void GameObject::collision(){
+    for(auto const& i : *m_game->GetGameObjects()){
+            int jg = i->getself();
+        if(i != this){
+            for(auto const& j : i->m_rects){
+                for(auto const& h : m_rects){
+                    if(SDL_HasIntersection(&j.rect,&h.rect)){
+                        collisionCB(&(*i));
+                        i->collisionCB(this);
+                    }
+                }
+            }
+        }
+    }
 }

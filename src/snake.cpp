@@ -1,4 +1,5 @@
 #include "snake.h"
+#include "game.h"
 
 Snake::Snake(Game* g)
 {
@@ -9,18 +10,20 @@ Snake::Snake(Game* g)
     int sc[4] = {SDL_SCANCODE_W, SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D};
     for(int i = 0; i < 4; i++) {
         m_KeyCB[i].callback = std::bind(&KeyCallBack, this, _1);
-        m_KeyCB[i].keyDown = false;
+        m_KeyCB[i].keyDown = true;
         m_KeyCB[i].sc = sc[i];
         m_game->GeteventHandler()->RegisterKeyCallback(&m_KeyCB[i]);
     }
-    m_board.rect.x = 0;
-    m_board.rect.y = 0;
-    m_board.rect.w = 20;
-    m_board.rect.h = 20;
-    m_board.r = 240;
-    m_board.g = 56;
-    m_board.b = 255;
-    m_game->Getrenderer()->AddRectangle(&m_board);
+    renderRect m_snake;
+    m_snake.rect.x = 0;
+    m_snake.rect.y = 0;
+    m_snake.rect.w = 20;
+    m_snake.rect.h = 20;
+    m_snake.r = 240;
+    m_snake.g = 56;
+    m_snake.b = 255;
+    m_rects.insert(m_rects.end(), m_snake);
+    m_game->Getrenderer()->AddRectangle(&m_rects.back());
 }
 
 Snake::~Snake()
@@ -28,29 +31,29 @@ Snake::~Snake()
     //dtor
 }
 
-void Snake::collisionCB(GameObject obj){
-    std::cout << "test" << std::endl;
+void Snake::collisionCB(GameObject * obj){
+    std::cout << "snake" << std::endl;
     return;
 }
 
 void Snake::KeyCallBack(int sc) {
     switch (sc) {
     case SDL_SCANCODE_W:
-        m_board.rect.y--;
+        m_rects.back().rect.y--;
         break;
     case SDL_SCANCODE_A:
-        m_board.rect.x--;
+        m_rects.back().rect.x--;
         break;
     case SDL_SCANCODE_S:
-        m_board.rect.y++;
+        m_rects.back().rect.y++;
         break;
     case SDL_SCANCODE_D:
-        m_board.rect.x++;
+        m_rects.back().rect.x++;
         break;
     default:
         std::cout << "Invaild Scancode";
         return;
     }
     using namespace std::placeholders; // for `_1`
-    collision(std::bind(&collisionCB, this, _1));
+    collision();
 }
