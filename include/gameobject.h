@@ -13,7 +13,7 @@ class GameObject
         ~GameObject();
         /** Get self identifier */
         unsigned long long getself(){return self;}
-        /** Destory this objec */
+        /** Destroy this object */
 
 
     protected:
