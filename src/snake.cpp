@@ -36,23 +36,24 @@ void Snake::collisionCB(GameObject * obj){
 }
 
 void Snake::KeyCallBack(int sc) {
+    XY pos;
     switch (sc) {
     case SDL_SCANCODE_W:
-        m_rects["snake1"].AddY(-50 * m_game->getDTime());
+        pos.y -= speed;
         break;
     case SDL_SCANCODE_A:
-        m_rects["snake1"].AddX(-50 * m_game->getDTime());
+        pos.x -= speed;
         break;
     case SDL_SCANCODE_S:
-        m_rects["snake1"].AddY(50 * m_game->getDTime());
+        pos.y += speed;
         break;
     case SDL_SCANCODE_D:
-        m_rects["snake1"].AddX(50 * m_game->getDTime());
+        pos.x += speed;
         break;
     default:
         std::cout << "Invaild Scancode";
         return;
     }
-    using namespace std::placeholders; // for `_1`
+    Move(pos);
     collision();
 }

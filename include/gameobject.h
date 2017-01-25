@@ -27,6 +27,8 @@ class GameObject
         virtual void collisionCB(GameObject * obj);
         Game* m_game; //!< Pointer to game object
         std::map<std::string, renderRect> m_rects; //!< Struct for holding rectangle rendering info
+        //* Moves all of the Rects */
+        void Move(XY movement);
 
 
 

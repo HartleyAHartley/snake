@@ -24,6 +24,7 @@ class Snake : public GameObject
         void collisionCB(GameObject * obj);
 
     private:
+        const int speed=50;
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
 };
 

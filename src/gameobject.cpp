@@ -33,3 +33,10 @@ void GameObject::collision(){
         }
     }
 }
+
+void GameObject::Move(XY movement){
+    for(auto const& i : m_rects){
+        m_rects["snake1"].AddX((movement.x + i.second.offset.x) * m_game->getDTime());
+        m_rects["snake1"].AddY((movement.y + i.second.offset.y) * m_game->getDTime());
+    }
+}

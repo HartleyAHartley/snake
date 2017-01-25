@@ -25,6 +25,11 @@ struct keyCallback {
     bool keyDown = false;
 };
 
+struct XY {
+    int x = 0;
+    int y = 0;
+};
+
 struct renderRect {
     SDL_Rect rect;
     double x = 0;
@@ -32,7 +37,6 @@ struct renderRect {
     void AddX(double val){
         x += val;
         rect.x = (int)x;
-        std::cout << x << std::endl;
     }
     void AddY(double val){
         y += val;
@@ -43,6 +47,7 @@ struct renderRect {
     int b = 0;
     int a = 255;
     bool render = true;
+    XY offset;
 };
 
 
