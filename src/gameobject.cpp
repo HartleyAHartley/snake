@@ -11,6 +11,10 @@ GameObject::~GameObject()
     //dtor
 }
 
+void GameObject::Update(){
+    return;
+}
+
 void GameObject::collisionCB(GameObject * obj){
     return;
 }

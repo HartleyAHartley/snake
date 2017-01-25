@@ -26,6 +26,7 @@ class GameObject
         virtual void collisionCB(GameObject * obj);
         Game* m_game; //!< Pointer to game object
         std::list<renderRect> m_rects; //!< Struct for holding rectangle rendering info
+        void Update();
 
 
     private:

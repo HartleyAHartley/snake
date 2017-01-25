@@ -19,6 +19,7 @@ public:
     GameBoard(Game* g);
     virtual ~GameBoard();
     void collisionCB(GameObject * obj);
+    virtual void Update();
 
 protected:
 
