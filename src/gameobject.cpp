@@ -17,7 +17,6 @@ void GameObject::collisionCB(GameObject * obj){
 
 void GameObject::collision(){
     for(auto const& i : *m_game->GetGameObjects()){
-            int jg = i->getself();
         if(i != this){
             for(auto const& j : i->m_rects){
                 for(auto const& h : m_rects){
