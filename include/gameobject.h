@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <list>
+#include <string>
 #include "types.h"
 
 class Game;
@@ -17,7 +18,7 @@ class GameObject
         /** Get self identifier */
         unsigned long long getself(){return self;}
         /** Destroy this object */
-
+        virtual void Update();
 
     protected:
         bool operator==(GameObject* obj){return self==obj->getself();}
@@ -25,8 +26,8 @@ class GameObject
         void collision();
         virtual void collisionCB(GameObject * obj);
         Game* m_game; //!< Pointer to game object
-        std::list<renderRect> m_rects; //!< Struct for holding rectangle rendering info
-        void Update();
+        std::map<std::string, renderRect> m_rects; //!< Struct for holding rectangle rendering info
+
 
 
     private:

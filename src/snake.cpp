@@ -22,8 +22,8 @@ Snake::Snake(Game* g)
     m_snake.r = 240;
     m_snake.g = 56;
     m_snake.b = 255;
-    m_rects.insert(m_rects.end(), m_snake);
-    m_game->Getrenderer()->AddRectangle(&m_rects.back());
+    m_rects["snake1"] = m_snake;
+    m_game->Getrenderer()->AddRectangle(&m_rects["snake1"]);
 }
 
 Snake::~Snake()
@@ -32,27 +32,22 @@ Snake::~Snake()
 }
 
 void Snake::collisionCB(GameObject * obj){
-    std::cout << "snake" << std::endl;
     return;
 }
 
 void Snake::KeyCallBack(int sc) {
     switch (sc) {
     case SDL_SCANCODE_W:
-        m_rects.back().y -= 50 * m_game->getDTime();
-        m_rects.back().rect.y = (int)m_rects.back().y;
+        m_rects["snake1"].AddY(-50 * m_game->getDTime());
         break;
     case SDL_SCANCODE_A:
-        m_rects.back().x -= 50 * m_game->getDTime();
-        m_rects.back().rect.x = (int)m_rects.back().x;
+        m_rects["snake1"].AddX(-50 * m_game->getDTime());
         break;
     case SDL_SCANCODE_S:
-        m_rects.back().y += 50 * m_game->getDTime();
-        m_rects.back().rect.y = (int)m_rects.back().y;
+        m_rects["snake1"].AddY(50 * m_game->getDTime());
         break;
     case SDL_SCANCODE_D:
-        m_rects.back().x += 50 * m_game->getDTime();
-        m_rects.back().rect.x = (int)m_rects.back().x;
+        m_rects["snake1"].AddX(50 * m_game->getDTime());
         break;
     default:
         std::cout << "Invaild Scancode";

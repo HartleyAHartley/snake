@@ -5,6 +5,7 @@
 #include <functional>
 #include <map>
 #include <chrono>
+#include <iostream>
 
 /** Type Definition for the keyboard callback pointer */
 typedef std::function<void(int)> keyCB;
@@ -17,8 +18,6 @@ typedef Clock::time_point Time;
  * \param pointer to keyCallback callback
  * \param ScanCode for key
  * \param If True only returns callback on the first frame of keypress.
- * \param minKey for callback
- * \param maxKey for callback
  */
 struct keyCallback {
     keyCB callback;
@@ -28,8 +27,17 @@ struct keyCallback {
 
 struct renderRect {
     SDL_Rect rect;
-    double x;
-    double y;
+    double x = 0;
+    double y = 0;
+    void AddX(double val){
+        x += val;
+        rect.x = (int)x;
+        std::cout << x << std::endl;
+    }
+    void AddY(double val){
+        y += val;
+        rect.y = (int)y;
+    }
     int r = 0;
     int g = 0;
     int b = 0;

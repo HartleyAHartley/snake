@@ -24,7 +24,7 @@ void GameObject::collision(){
         if(i != this){
             for(auto const& j : i->m_rects){
                 for(auto const& h : m_rects){
-                    if(SDL_HasIntersection(&j.rect,&h.rect)){
+                    if(SDL_HasIntersection(&j.second.rect,&h.second.rect)){
                         collisionCB(&(*i));
                         i->collisionCB(this);
                     }

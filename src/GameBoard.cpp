@@ -21,14 +21,13 @@ GameBoard::GameBoard(Game* g) {
     m_board.g = 23;
     m_board.b = 255;
 
-    m_rects.insert(m_rects.end(), m_board);
-    m_game->Getrenderer()->AddRectangle(&m_rects.back());
+    m_rects["pebble"] = m_board;
+    m_game->Getrenderer()->AddRectangle(&m_rects["pebble"]);
 }
 
 void GameBoard::collisionCB(GameObject * obj){
-    std::cout << x(rng) << std::endl;
-    m_rects.back().rect.x = x(rng);
-    m_rects.back().rect.y = y(rng);
+    m_rects["pebble"].rect.x = x(rng);
+    m_rects["pebble"].rect.y = y(rng);
     return;
 }
 
