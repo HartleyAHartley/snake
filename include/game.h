@@ -96,7 +96,7 @@ public:
     /** Returns GameObject List
      * \return The pointer to the GameObject List
      */
-    std::list<GameObject*>* GetGameObjects() {
+    std::map<std::string, GameObject*>* GetGameObjects() {
         return &m_gameobjects;
     }
     /** Updates Scene */
@@ -114,7 +114,7 @@ protected:
 private:
     EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
     Renderer* m_renderer; //!< Member variable "renderer"
-    std::list<GameObject*> m_gameobjects; //!< List of GameObjects
+    std::map<std::string, GameObject*> m_gameobjects; //!< List of GameObjects
     unsigned int m_screenWidth; //!< Member variable "screenWidth"
     unsigned int m_screenHeight; //!< Member variable "screenHeight"
     bool m_fullscreen; //!< Member variable "fullscreen"

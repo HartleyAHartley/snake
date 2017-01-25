@@ -15,8 +15,8 @@ Game::Game(unsigned int w, unsigned int h, bool f) {
         m_initError = true;
     }
     m_eventHandler = new EventHandler(this);
-    m_gameobjects.insert( m_gameobjects.end(), new Snake(this));
-    m_gameobjects.insert( m_gameobjects.end(), new GameBoard(this));
+    m_gameobjects["snake"] = new Snake(this);
+    m_gameobjects["gameBoard"] = new GameBoard(this);
 }
 
 Game::~Game() {

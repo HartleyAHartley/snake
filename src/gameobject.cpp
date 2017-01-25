@@ -21,12 +21,12 @@ void GameObject::collisionCB(GameObject * obj){
 
 void GameObject::collision(){
     for(auto const& i : *m_game->GetGameObjects()){
-        if(i != this){
-            for(auto const& j : i->m_rects){
+        if(i.second != this){
+            for(auto const& j : i.second->m_rects){
                 for(auto const& h : m_rects){
                     if(SDL_HasIntersection(&j.second.rect,&h.second.rect)){
-                        collisionCB(&(*i));
-                        i->collisionCB(this);
+                        collisionCB(&(*i.second));
+                        i.second->collisionCB(this);
                     }
                 }
             }
