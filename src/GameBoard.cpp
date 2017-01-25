@@ -2,6 +2,14 @@
 
 GameBoard::GameBoard(Game* g) {
 
+    std::random_device rd;
+    std:: mt19937 bng(rd());
+    rng = bng;
+    std::uniform_int_distribution<int> bx(0,640);
+    std::uniform_int_distribution<int> by(0,480);
+    x = bx;
+    y = by;
+
     m_game = g;
 
     renderRect m_board;
@@ -18,29 +26,12 @@ GameBoard::GameBoard(Game* g) {
 }
 
 void GameBoard::collisionCB(GameObject * obj){
-    std::cout << "board" << std::endl;
+    std::cout << x(rng) << std::endl;
+    m_rects.back().rect.x = x(rng);
+    m_rects.back().rect.y = y(rng);
     return;
 }
 
 GameBoard::~GameBoard() {
     //dtor
-}
-
-void GameBoard::KeyCallBack(int sc) {
-    switch (sc) {
-    case SDL_SCANCODE_W:
-        m_rects.back().rect.y--;
-        break;
-    case SDL_SCANCODE_A:
-        m_rects.back().rect.x--;
-        break;
-    case SDL_SCANCODE_S:
-        m_rects.back().rect.y++;
-        break;
-    case SDL_SCANCODE_D:
-        m_rects.back().rect.x++;
-        break;
-    default:
-        std::cout << "Invaild Scancode";
-    }
 }
