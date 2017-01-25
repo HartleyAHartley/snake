@@ -1,6 +1,7 @@
 #include "game.h"
 
 Game::Game(unsigned int w, unsigned int h, bool f) {
+    lastFrame = Clock::now();
     m_screenWidth = w;
     m_screenHeight = h;
     m_fullscreen = f;
@@ -29,4 +30,14 @@ void Game::Draw() {
 
 void Game::Step() {
     m_eventHandler->Update();
+}
+
+void Game::DTime(){
+    dTime = Clock::now() - lastFrame;
+    dTime *= 10;
+    lastFrame = Clock::now();
+}
+
+double Game::getDTime() {
+    return dTime.count();
 }

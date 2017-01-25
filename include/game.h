@@ -4,8 +4,10 @@
 #include <SDL.h>
 #include <iostream>
 #include <list>
+#include <chrono>
 
 #include "renderer.h"
+#include "types.h"
 #include "eventhandler.h"
 #include "Snake.h"
 #include "gameboard.h"
@@ -97,8 +99,15 @@ public:
     std::list<GameObject*>* GetGameObjects() {
         return &m_gameobjects;
     }
-
+    /** Updates Scene */
     void Draw();
+    /** Updates the delta time */
+    void DTime();
+    /** Returns delta time
+     * \return dTime
+     */
+    double getDTime();
+
 
 protected:
 
@@ -111,6 +120,9 @@ private:
     bool m_fullscreen; //!< Member variable "fullscreen"
     bool m_initError = false; //!< Member variable "init" True if game init was successful.
     bool m_quit = false; //!< Member variable "open" True if game should stay open.
+    std::chrono::duration<double> dTime;
+    Time lastFrame;
+
 };
 
 #endif // GAME_H

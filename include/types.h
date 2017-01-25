@@ -4,9 +4,14 @@
 #include <SDL.h>
 #include <functional>
 #include <map>
+#include <chrono>
 
 /** Type Definition for the keyboard callback pointer */
 typedef std::function<void(int)> keyCB;
+/** Type Definition for chrono clock shorthand */
+typedef std::chrono::high_resolution_clock Clock;
+/** Type Definition for chrono time_point shorthand */
+typedef Clock::time_point Time;
 
 /** Keyboard CallBack
  * \param pointer to keyCallback callback
@@ -23,6 +28,8 @@ struct keyCallback {
 
 struct renderRect {
     SDL_Rect rect;
+    double x;
+    double y;
     int r = 0;
     int g = 0;
     int b = 0;

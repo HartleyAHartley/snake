@@ -8,6 +8,7 @@ int main( int argc, char * argv[] ) {
     while(!snake->quit()) {
         snake->Step();
         snake->Draw();
+        snake->DTime();
     }
     return 0;
 }

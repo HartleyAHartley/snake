@@ -10,7 +10,7 @@ Snake::Snake(Game* g)
     int sc[4] = {SDL_SCANCODE_W, SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D};
     for(int i = 0; i < 4; i++) {
         m_KeyCB[i].callback = std::bind(&KeyCallBack, this, _1);
-        m_KeyCB[i].keyDown = true;
+        m_KeyCB[i].keyDown = false;
         m_KeyCB[i].sc = sc[i];
         m_game->GeteventHandler()->RegisterKeyCallback(&m_KeyCB[i]);
     }
@@ -39,16 +39,20 @@ void Snake::collisionCB(GameObject * obj){
 void Snake::KeyCallBack(int sc) {
     switch (sc) {
     case SDL_SCANCODE_W:
-        m_rects.back().rect.y--;
+        m_rects.back().y -= 50 * m_game->getDTime();
+        m_rects.back().rect.y = (int)m_rects.back().y;
         break;
     case SDL_SCANCODE_A:
-        m_rects.back().rect.x--;
+        m_rects.back().x -= 50 * m_game->getDTime();
+        m_rects.back().rect.x = (int)m_rects.back().x;
         break;
     case SDL_SCANCODE_S:
-        m_rects.back().rect.y++;
+        m_rects.back().y += 50 * m_game->getDTime();
+        m_rects.back().rect.y = (int)m_rects.back().y;
         break;
     case SDL_SCANCODE_D:
-        m_rects.back().rect.x++;
+        m_rects.back().x += 50 * m_game->getDTime();
+        m_rects.back().rect.x = (int)m_rects.back().x;
         break;
     default:
         std::cout << "Invaild Scancode";
