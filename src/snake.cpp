@@ -15,10 +15,10 @@ Snake::Snake(Game* g)
         m_game->GeteventHandler()->RegisterKeyCallback(&m_KeyCB[i]);
     }
     renderRect m_snake;
-    m_snake.rect.x = 0;
-    m_snake.rect.y = 0;
     m_snake.rect.w = 20;
     m_snake.rect.h = 20;
+    m_snake.x = m_snake.rect.x = m_game->GetW()/2 - (m_snake.rect.w/2);
+    m_snake.y = m_snake.rect.y = m_game->GetH()/2 - (m_snake.rect.h/2);
     m_snake.r = 240;
     m_snake.g = 56;
     m_snake.b = 255;

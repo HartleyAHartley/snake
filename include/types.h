@@ -50,5 +50,4 @@ struct renderRect {
     XY offset;
 };
 
-
 #endif

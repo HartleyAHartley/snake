@@ -4,7 +4,6 @@ Renderer::Renderer(Uint32 flags, unsigned int h, unsigned int w, bool f) {
     if ( SDL_Init( flags ) != 0 )
         throw GameError();
 
-
     if(f){
         if ( SDL_CreateWindowAndRenderer( w, h, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP,
                                       &m_window, &m_renderer ) != 0 )

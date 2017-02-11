@@ -30,26 +30,14 @@ public:
     /** Access screenWidth
      * \return The current value of screenWidth
      */
-    unsigned int GetscreenWidth() {
+    int GetW() {
         return m_screenWidth;
-    }
-    /** Set screenWidth
-     * \param val New value to set
-     */
-    void SetscreenWidth(unsigned int val) {
-        m_screenWidth = val;
     }
     /** Access screenHeight
      * \return The current value of screenHeight
      */
-    unsigned int GetscreenHeight() {
+    int GetH() {
         return m_screenHeight;
-    }
-    /** Set screenHeight
-     * \param val New value to set
-     */
-    void SetscreenHeight(unsigned int val) {
-        m_screenHeight = val;
     }
     /** Access fullscreen
      * \return The current value of fullscreen
@@ -108,15 +96,14 @@ public:
      */
     double getDTime();
 
-
 protected:
 
 private:
     EventHandler* m_eventHandler; //!< Pointer to eventHandler Object
     Renderer* m_renderer; //!< Member variable "renderer"
     std::map<std::string, GameObject*> m_gameobjects; //!< List of GameObjects
-    unsigned int m_screenWidth; //!< Member variable "screenWidth"
-    unsigned int m_screenHeight; //!< Member variable "screenHeight"
+    int m_screenWidth; //!< Member variable "screenWidth"
+    int m_screenHeight; //!< Member variable "screenHeight"
     bool m_fullscreen; //!< Member variable "fullscreen"
     bool m_initError = false; //!< Member variable "init" True if game init was successful.
     bool m_quit = false; //!< Member variable "open" True if game should stay open.

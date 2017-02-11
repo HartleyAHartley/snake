@@ -12,17 +12,27 @@ GameBoard::GameBoard(Game* g) {
 
     m_game = g;
 
-    renderRect m_board;
-    m_board.rect.x = 200;
-    m_board.rect.y = 200;
-    m_board.rect.w = 10;
-    m_board.rect.h = 10;
-    m_board.r = 56;
-    m_board.g = 23;
-    m_board.b = 255;
+    renderRect m_board[5];
+    int w[] = {10,10,m_game->GetH(),m_game->GetH(),10};
+    int h[] = {m_game->GetW(),m_game->GetW(),10,10,10};
+    int posX[] = {0,m_game->GetW()-w[1],w[0],w[0],10};
+    int posY[] = {0,0,0,m_game->GetH()-h[3],10};
+    std::string names[] = {"boardL","boardR","boardUp","boardDown","test"};
+    int colorR = 56;
+    int colorG = 23;
+    int colorB = 255;
+    for(int i=0;i<5;i++){
+        m_board[i].rect.w = w[i];
+        m_board[i].rect.h = h[i];
+        m_board[i].x = posX[i];
+        m_board[i].y = posY[i];
+        m_board[i].r = colorR;
+        m_board[i].g = colorG;
+        m_board[i].b = colorB;
+        m_rects[names[i]] = m_board[i];
+        m_game->Getrenderer()->AddRectangle(&m_rects[names[i]]);
+    }
 
-    m_rects["pebble"] = m_board;
-    m_game->Getrenderer()->AddRectangle(&m_rects["pebble"]);
 }
 
 void GameBoard::collisionCB(GameObject * obj){
