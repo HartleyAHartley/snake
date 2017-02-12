@@ -36,7 +36,7 @@ void GameObject::collision(){
 
 void GameObject::Move(XY movement){
     for(auto &i : m_rects){
-        i.second.AddX((movement.x + i.second.offset.x) * m_game->getDTime());
-        i.second.AddY((movement.y + i.second.offset.y) * m_game->getDTime());
+        i.second.AddX((movement.x ) * m_game->getDTime());
+        i.second.AddY((movement.y ) * m_game->getDTime());
     }
 }

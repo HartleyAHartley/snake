@@ -22,10 +22,13 @@ class Snake : public GameObject
 
     protected:
         void collisionCB(GameObject * obj);
+        void Update();
 
     private:
-        const int speed=50;
+        const int speed=25;
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
+        XY m_dir;
+        void align();
 };
 
 #endif // SNAKE_H

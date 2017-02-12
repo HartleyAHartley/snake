@@ -28,6 +28,12 @@ struct keyCallback {
 struct XY {
     int x = 0;
     int y = 0;
+    XY operator*(float a) const{
+        XY t;
+        t.x=x*a;
+        t.y=y*a;
+        return t;
+    }
 };
 
 struct renderRect {
@@ -48,6 +54,7 @@ struct renderRect {
     int a = 255;
     bool render = true;
     XY offset;
+    bool collision = false;
 };
 
 #endif

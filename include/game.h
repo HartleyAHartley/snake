@@ -9,12 +9,14 @@
 #include "renderer.h"
 #include "types.h"
 #include "eventhandler.h"
-#include "Snake.h"
+#include "snake.h"
 #include "gameboard.h"
+#include "fruit.h"
 
 class EventHandler;
 class Snake;
 class GameBoard;
+class Fruit;
 
 class Game {
 public:
@@ -23,7 +25,7 @@ public:
      * \param h Height
      * \param f Fullscreen
      */
-    Game(unsigned int w=640, unsigned int h=480, bool f=false);
+    Game(int g=10, unsigned int w=640, unsigned int h=480, bool f=false);
     /** Default destructor */
     ~Game();
 
@@ -84,9 +86,7 @@ public:
     /** Returns GameObject List
      * \return The pointer to the GameObject List
      */
-    std::map<std::string, GameObject*>* GetGameObjects() {
-        return &m_gameobjects;
-    }
+    std::map<std::string, GameObject*>* GetGameObjects() {return &m_gameobjects;}
     /** Updates Scene */
     void Draw();
     /** Updates the delta time */
@@ -94,7 +94,11 @@ public:
     /** Returns delta time
      * \return dTime
      */
-    double getDTime();
+    double getDTime(){return dTime.count();};
+    /** Returns grid size
+     * \return m_grid
+     */
+    int getGrid(){return m_grid;}
 
 protected:
 
@@ -109,7 +113,8 @@ private:
     bool m_quit = false; //!< Member variable "open" True if game should stay open.
     std::chrono::duration<double> dTime;
     Time lastFrame;
-
+    keyCallback m_KeyCB;
+    int m_grid;
 };
 
 #endif // GAME_H

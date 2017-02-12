@@ -24,7 +24,6 @@ protected:
 
 private:
     keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
-    std:: mt19937 rng;
     std::uniform_int_distribution<int> x;
     std::uniform_int_distribution<int> y;
 

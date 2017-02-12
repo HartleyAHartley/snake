@@ -25,9 +25,13 @@ void Renderer::Draw() {
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear( m_renderer );
     // Show the window
+    int p=0;
     for(const auto& i : renderRectangles) {
-        if((*i).render) {
-            RenderRect(&(*i));
+
+        for(auto const& h : *i){
+            if((h.second.render)) {
+                RenderRect(&h.second);
+            }
         }
     }
     SDL_RenderPresent( m_renderer );
@@ -45,7 +49,6 @@ bool Renderer::RenderRect(const renderRect * rr) {
 }
 
 
-const std::list<renderRect*>::iterator Renderer::AddRectangle(renderRect * rr) {
-    return renderRectangles.insert(renderRectangles.end(), rr);
-    //TODO: At some point this should return some kind of a reference so that the rectangle can be removed from the list later.
+void Renderer::AddRectangle(std::map<std::string, renderRect>* rr) {
+    renderRectangles.insert(renderRectangles.end(), rr);
 }

@@ -19,6 +19,7 @@ class GameObject
         unsigned long long getself(){return self;}
         /** Destroy this object */
         virtual void Update();
+        const char* getName(){return name;}
 
     protected:
         bool operator==(GameObject* obj){return self==obj->getself();}
@@ -29,7 +30,7 @@ class GameObject
         std::map<std::string, renderRect> m_rects; //!< Struct for holding rectangle rendering info
         //* Moves all of the Rects */
         void Move(XY movement);
-
+        const char* name = "";
 
 
     private:
