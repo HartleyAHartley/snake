@@ -40,3 +40,10 @@ void GameObject::Move(XY movement){
         i.second.AddY((movement.y ) * m_game->getDTime());
     }
 }
+
+void GameObject::Set(XY pos){
+    for(auto &i : m_rects){
+        i.second.rect.x = pos.x+i.second.offset.x;
+        i.second.rect.y = pos.y+i.second.offset.y;
+    }
+}

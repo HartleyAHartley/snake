@@ -30,6 +30,7 @@ class GameObject
         std::map<std::string, renderRect> m_rects; //!< Struct for holding rectangle rendering info
         //* Moves all of the Rects */
         void Move(XY movement);
+        void Set(XY pos);
         const char* name = "";
 
 

@@ -29,6 +29,10 @@ class Snake : public GameObject
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
         XY m_dir;
         void align();
+        void AddRect();
+        void MoveRect(renderRect * rect, XY movement);
+        void SetRect(renderRect * rect, XY pos);
+        int length=1;
 };
 
 #endif // SNAKE_H
