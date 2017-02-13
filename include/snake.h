@@ -25,6 +25,7 @@ class Snake : public GameObject
         void Update();
 
     private:
+        float time=0;
         const int speed=25;
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
         XY m_dir;

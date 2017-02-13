@@ -25,7 +25,7 @@ Snake::Snake(Game* g)
     m_snake.g = 56;
     m_snake.b = 255;
     m_rects["0"] = m_snake;
-
+    align();
     m_game->Getrenderer()->AddRectangle(&m_rects);
 }
 
@@ -60,13 +60,18 @@ void Snake::AddRect(){
 }
 
 void Snake::Update(){
-    MoveRect(&m_rects["0"],m_dir*speed);
+    time+=m_game->getDTime();
+    if(time > 0.1){
+        std::cout<<time<<std::endl;
+        time=0;
+        MoveRect(&m_rects["0"],m_dir*m_game->getGrid());
+    }
     collision();
 }
 
 void Snake::MoveRect(renderRect * rect, XY movement){
-    rect->AddX((movement.x ) * m_game->getDTime());
-    rect->AddY((movement.y ) * m_game->getDTime());
+    rect->AddX(movement.x);
+    rect->AddY(movement.y);
 }
 
 void Snake::SetRect(renderRect * rect, XY pos){

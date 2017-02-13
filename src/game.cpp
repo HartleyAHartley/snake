@@ -42,6 +42,6 @@ void Game::Step() {
 
 void Game::DTime(){
     dTime = Clock::now() - lastFrame;
-    dTime *= 10;
+    dTime *= 1;
     lastFrame = Clock::now();
 }
