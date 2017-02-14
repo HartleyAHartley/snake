@@ -30,10 +30,15 @@ class Snake : public GameObject
         keyCallback m_KeyCB[4]; //!< Struct for holding keycallback info.
         XY m_dir;
         void align();
-        void AddRect();
+        void AddRect(int id);
         void MoveRect(renderRect * rect, XY movement);
         void SetRect(renderRect * rect, XY pos);
+        int maxLength=0;
         int length=1;
+        int endTail =0;
+        std::map<std::string, renderRect> m_tails;
+        void UpdateRect(int id);
+        void Reset();
 };
 
 #endif // SNAKE_H

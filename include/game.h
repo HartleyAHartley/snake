@@ -25,7 +25,7 @@ public:
      * \param h Height
      * \param f Fullscreen
      */
-    Game(int g=10, unsigned int w=640, unsigned int h=480, bool f=false);
+    Game(int g=10, float t=1, unsigned int w=640, unsigned int h=480, bool f=false);
     /** Default destructor */
     ~Game();
 
@@ -115,6 +115,7 @@ private:
     Time lastFrame;
     keyCallback m_KeyCB;
     int m_grid;
+    float timeScale;
 };
 
 #endif // GAME_H

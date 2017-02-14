@@ -27,6 +27,7 @@ Snake::Snake(Game* g)
     m_rects["0"] = m_snake;
     align();
     m_game->Getrenderer()->AddRectangle(&m_rects);
+    m_game->Getrenderer()->AddRectangle(&m_tails);
 }
 
 Snake::~Snake()
@@ -41,30 +42,58 @@ void Snake::collisionCB(GameObject * obj){
         pos.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
         SetRect(&m_rects["0"],pos);
     } else if(!strcmp(obj->getName(), "Fruit")) {
-        length++;
+        maxLength+=4;
     }
 }
 
-void Snake::AddRect(){
+void Snake::Reset(){
+    m_tails.clear();
+    maxLength =0;
+    length =0;
+    endTail =0;
+    m_rects["0"].x = m_rects["0"].rect.x = m_game->GetW()/2 - (m_rects["0"].rect.w/2);
+    m_rects["0"].y = m_rects["0"].rect.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
+}
+
+void Snake::AddRect(int id){
     renderRect temp;
     temp.rect.w = m_game->getGrid();
     temp.rect.h = m_game->getGrid();
-    temp.rect.x = temp.x = m_rects["0"].x-(m_dir.x*speed);
-    temp.rect.y = temp.y = m_rects["0"].y-(m_dir.y*speed);
+    temp.rect.x = temp.x = m_rects["0"].x;
+    temp.rect.y = temp.y = m_rects["0"].y;
     temp.offset.x = -(m_dir.x*speed);
     temp.offset.y = -(m_dir.y*speed);
     temp.r = 56;
     temp.g = 255;
     temp.b = 240;
-    m_rects["1"] = temp;
+    m_tails[""+id] = temp;
+}
+
+void Snake::UpdateRect(int id){
+    m_tails[""+id].rect.x = m_rects["0"].x;
+    m_tails[""+id].rect.y = m_rects["0"].y;
 }
 
 void Snake::Update(){
     time+=m_game->getDTime();
     if(time > 0.1){
-        std::cout<<time<<std::endl;
         time=0;
         MoveRect(&m_rects["0"],m_dir*m_game->getGrid());
+        if(maxLength >= length ){
+            std::cout<<length<<std::endl;
+            AddRect(length++);
+        } else if(!m_tails.empty()){
+            endTail++;
+            if(endTail >= length){
+                endTail = 1;
+            }
+            std::cout<<endTail;
+            if(m_tails.count(endTail+"")>0){
+                std::cout<<"exists";
+            }
+            std::cout<<std::endl;
+            UpdateRect(endTail);
+        }
     }
     collision();
 }
@@ -92,28 +121,24 @@ void Snake::KeyCallBack(int sc) {
         if(m_dir.y==0){
             m_dir.y=-1;
             m_dir.x=0;
-            align();
         }
         break;
     case SDL_SCANCODE_A:
         if(m_dir.x==0){
             m_dir.y=0;
             m_dir.x=-1;
-            align();
         }
         break;
     case SDL_SCANCODE_S:
         if(m_dir.y==0){
             m_dir.y=1;
             m_dir.x=0;
-            align();
         }
         break;
     case SDL_SCANCODE_D:
         if(m_dir.x==0){
             m_dir.y=0;
             m_dir.x=1;
-            align();
         }
         break;
     default:

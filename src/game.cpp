@@ -1,11 +1,12 @@
 #include "game.h"
 
-Game::Game(int g, unsigned int w, unsigned int h, bool f) {
+Game::Game(int g, float t, unsigned int w, unsigned int h, bool f) {
     lastFrame = Clock::now();
     m_screenWidth = w;
     m_screenHeight = h;
     m_fullscreen = f;
     m_grid = g;
+    timeScale = t;
 
     try {
         m_renderer = new Renderer( SDL_INIT_VIDEO | SDL_INIT_TIMER, m_screenHeight, m_screenWidth, m_fullscreen);
@@ -42,6 +43,6 @@ void Game::Step() {
 
 void Game::DTime(){
     dTime = Clock::now() - lastFrame;
-    dTime *= 1;
+    dTime *= timeScale;
     lastFrame = Clock::now();
 }
