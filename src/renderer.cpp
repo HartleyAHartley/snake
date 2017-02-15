@@ -33,6 +33,11 @@ void Renderer::Draw() {
             }
         }
     }
+    for(const auto& i : *dequeRects){
+        if(i.render){
+            RenderRect(&i);
+        }
+    }
     SDL_RenderPresent( m_renderer );
 }
 
@@ -50,4 +55,8 @@ bool Renderer::RenderRect(const renderRect * rr) {
 
 void Renderer::AddRectangle(std::map<std::string, renderRect>* rr) {
     renderRectangles.insert(renderRectangles.end(), rr);
+}
+
+void Renderer::AddRectangle(std::deque<renderRect>* rr) {
+    dequeRects = rr;
 }

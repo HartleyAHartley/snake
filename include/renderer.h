@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <list>
+#include <deque>
 
 #include "gameerror.h"
 #include "types.h"
@@ -42,6 +43,7 @@ public:
     void Draw();
     /** Add Rectangles for rendering */
     void AddRectangle(std::map<std::string, renderRect>* rr);
+    void AddRectangle(std::deque<renderRect>* rr);
 
 protected:
 
@@ -51,6 +53,7 @@ private:
     SDL_Window * m_window; //!< Member variable "m_window"
     SDL_Renderer * m_renderer; //!< Member variable "m_renderer"
     std::list<std::map<std::string, renderRect>*> renderRectangles; //!< List of defined rect structs to render.
+    std::deque<renderRect> * dequeRects;
 };
 
 #endif // SDL_H

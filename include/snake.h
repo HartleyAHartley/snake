@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <functional>
+#include <deque>
 
 class Game;
 #include "gameobject.h"
@@ -36,8 +36,8 @@ class Snake : public GameObject
         int maxLength=0;
         int length=1;
         int endTail =1;
-        std::map<std::string, renderRect> m_tails;
-        void UpdateRect(int id);
+        std::deque<renderRect> m_tails;
+        void UpdateRect();
         void Reset();
 };
 

@@ -1,7 +1,7 @@
 #include "main.h"
 
 int main( int argc, char * argv[] ) {
-    Game * snake = new Game(20,1.f);
+    Game * snake = new Game(20,1.f,1920,1080,true);
     if(snake->InitError()) {
         return 1;
     }

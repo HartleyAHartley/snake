@@ -42,17 +42,25 @@ void Snake::collisionCB(GameObject * obj){
         pos.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
         SetRect(&m_rects["0"],pos);
     } else if(!strcmp(obj->getName(), "Fruit")) {
-        maxLength+=4;
+        if(maxLength == 0){
+            maxLength=4;
+        } else{
+            maxLength*=2;
+        }
     }
 }
 
 void Snake::Reset(){
     m_tails.clear();
+    if(m_tails.empty()){
+        std::cout<<"reset"<<std::endl;
+    }
     maxLength =0;
     length =1;
     endTail =1;
     m_rects["0"].x = m_rects["0"].rect.x = m_game->GetW()/2 - (m_rects["0"].rect.w/2);
     m_rects["0"].y = m_rects["0"].rect.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
+    align();
 }
 
 void Snake::AddRect(int id){
@@ -66,12 +74,17 @@ void Snake::AddRect(int id){
     temp.r = (12*id)%256;
     temp.g = (255*id/5)%256;
     temp.b = (240*id/7)%256;
-    m_tails[""+id] = temp;
+    temp.render = false;
+    m_tails.push_front(temp);
 }
 
-void Snake::UpdateRect(int id){
-    m_tails[""+id].rect.x = m_rects["0"].x;
-    m_tails[""+id].rect.y = m_rects["0"].y;
+void Snake::UpdateRect(){
+    renderRect temp = m_tails.back();
+    m_tails.pop_back();
+    temp.render = false;
+    temp.rect.x = m_rects["0"].x;
+    temp.rect.y = m_rects["0"].y;
+    m_tails.push_front(temp);
 }
 
 void Snake::Update(){
@@ -79,20 +92,11 @@ void Snake::Update(){
     if(time > 0.1){
         time=0;
         MoveRect(&m_rects["0"],m_dir*m_game->getGrid());
-        if(length < maxLength && (endTail==1)){
-            std::cout<<length<<std::endl;
+        m_tails.front().render = true;
+        if(length <= maxLength){
             AddRect(length++);
         } else if(!m_tails.empty()){
-            if(m_tails.count(endTail+"")>0){
-                std::cout<<"exists";
-                UpdateRect(endTail);
-            }
-            endTail++;
-            if(endTail >= length){
-                endTail = 1;
-            }
-            std::cout<<endTail;
-            std::cout<<std::endl;
+            UpdateRect();
         }
     }
     collision();
