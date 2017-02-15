@@ -19,7 +19,8 @@ void GameObject::collisionCB(GameObject * obj){
     return;
 }
 
-void GameObject::collision(){
+bool GameObject::collision(){
+    bool collision = false;
     for(auto const& i : *m_game->GetGameObjects()){
         if(i.second != this){
             for(auto const& j : i.second->m_rects){
@@ -27,11 +28,13 @@ void GameObject::collision(){
                     if(SDL_HasIntersection(&j.second.rect,&h.second.rect)){
                         collisionCB(&(*i.second));
                         i.second->collisionCB(this);
+                        collision = true;
                     }
                 }
             }
         }
     }
+    return collision;
 }
 
 void GameObject::Move(XY movement){

@@ -24,7 +24,7 @@ class GameObject
     protected:
         bool operator==(GameObject* obj){return self==obj->getself();}
         unsigned long long self;
-        void collision();
+        bool collision();
         virtual void collisionCB(GameObject * obj);
         Game* m_game; //!< Pointer to game object
         std::map<std::string, renderRect> m_rects; //!< Struct for holding rectangle rendering info

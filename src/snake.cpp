@@ -37,10 +37,7 @@ Snake::~Snake()
 
 void Snake::collisionCB(GameObject * obj){
     if(!strcmp(obj->getName(), "GameBoard")){
-        XY pos;
-        pos.x = m_game->GetW()/2 - (m_rects["0"].rect.w/2);
-        pos.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
-        SetRect(&m_rects["0"],pos);
+        Reset();
     } else if(!strcmp(obj->getName(), "Fruit")) {
         if(maxLength == 0){
             maxLength=4;
@@ -52,9 +49,6 @@ void Snake::collisionCB(GameObject * obj){
 
 void Snake::Reset(){
     m_tails.clear();
-    if(m_tails.empty()){
-        std::cout<<"reset"<<std::endl;
-    }
     maxLength =0;
     length =1;
     endTail =1;
@@ -99,7 +93,17 @@ void Snake::Update(){
             UpdateRect();
         }
     }
-    collision();
+    if(!collision()){
+        TailCollision();
+    }
+}
+
+void Snake::TailCollision(){
+    for(auto const& i : m_tails){
+        if(SDL_HasIntersection(&i.rect,&m_rects["0"].rect) && i.render){
+            Reset();
+        }
+    }
 }
 
 void Snake::MoveRect(renderRect * rect, XY movement){

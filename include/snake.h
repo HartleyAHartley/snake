@@ -39,6 +39,7 @@ class Snake : public GameObject
         std::deque<renderRect> m_tails;
         void UpdateRect();
         void Reset();
+        void TailCollision();
 };
 
 #endif // SNAKE_H
