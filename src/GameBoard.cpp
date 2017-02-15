@@ -27,10 +27,6 @@ GameBoard::GameBoard(Game* g) {
     m_game->Getrenderer()->AddRectangle(&m_rects);
 }
 
-void GameBoard::collisionCB(GameObject * obj){
-    return;
-}
-
 GameBoard::~GameBoard() {
     //dtor
 }

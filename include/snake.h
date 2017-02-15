@@ -35,7 +35,7 @@ class Snake : public GameObject
         void SetRect(renderRect * rect, XY pos);
         int maxLength=0;
         int length=1;
-        int endTail =0;
+        int endTail =1;
         std::map<std::string, renderRect> m_tails;
         void UpdateRect(int id);
         void Reset();

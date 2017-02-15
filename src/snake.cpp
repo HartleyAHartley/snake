@@ -49,8 +49,8 @@ void Snake::collisionCB(GameObject * obj){
 void Snake::Reset(){
     m_tails.clear();
     maxLength =0;
-    length =0;
-    endTail =0;
+    length =1;
+    endTail =1;
     m_rects["0"].x = m_rects["0"].rect.x = m_game->GetW()/2 - (m_rects["0"].rect.w/2);
     m_rects["0"].y = m_rects["0"].rect.y = m_game->GetH()/2 - (m_rects["0"].rect.h/2);
 }
@@ -63,9 +63,9 @@ void Snake::AddRect(int id){
     temp.rect.y = temp.y = m_rects["0"].y;
     temp.offset.x = -(m_dir.x*speed);
     temp.offset.y = -(m_dir.y*speed);
-    temp.r = 56;
-    temp.g = 255;
-    temp.b = 240;
+    temp.r = (12*id)%256;
+    temp.g = (255*id/5)%256;
+    temp.b = (240*id/7)%256;
     m_tails[""+id] = temp;
 }
 
@@ -79,20 +79,20 @@ void Snake::Update(){
     if(time > 0.1){
         time=0;
         MoveRect(&m_rects["0"],m_dir*m_game->getGrid());
-        if(maxLength >= length ){
+        if(length < maxLength && (endTail==1)){
             std::cout<<length<<std::endl;
             AddRect(length++);
         } else if(!m_tails.empty()){
+            if(m_tails.count(endTail+"")>0){
+                std::cout<<"exists";
+                UpdateRect(endTail);
+            }
             endTail++;
             if(endTail >= length){
                 endTail = 1;
             }
             std::cout<<endTail;
-            if(m_tails.count(endTail+"")>0){
-                std::cout<<"exists";
-            }
             std::cout<<std::endl;
-            UpdateRect(endTail);
         }
     }
     collision();

@@ -25,7 +25,6 @@ void Renderer::Draw() {
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear( m_renderer );
     // Show the window
-    int p=0;
     for(const auto& i : renderRectangles) {
 
         for(auto const& h : *i){

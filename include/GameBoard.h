@@ -18,7 +18,6 @@ class GameBoard : public GameObject
 public:
     GameBoard(Game* g);
     virtual ~GameBoard();
-    void collisionCB(GameObject * obj);
 
 protected:
 
