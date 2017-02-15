@@ -39,9 +39,10 @@ void Snake::collisionCB(GameObject * obj){
     if(!strcmp(obj->getName(), "GameBoard")){
         Reset();
     } else if(!strcmp(obj->getName(), "Fruit")) {
+        //maxLength+=4;
         if(maxLength == 0){
-            maxLength=4;
-        } else{
+            maxLength =4;
+        } else {
             maxLength*=2;
         }
     }
@@ -65,9 +66,12 @@ void Snake::AddRect(int id){
     temp.rect.y = temp.y = m_rects["0"].y;
     temp.offset.x = -(m_dir.x*speed);
     temp.offset.y = -(m_dir.y*speed);
+    temp.r = 240;
+    temp.g = 56;
+    temp.b = 255;/*
     temp.r = (12*id)%256;
     temp.g = (255*id/5)%256;
-    temp.b = (240*id/7)%256;
+    temp.b = (240*id/7)%256;*/
     temp.render = false;
     m_tails.push_front(temp);
 }
