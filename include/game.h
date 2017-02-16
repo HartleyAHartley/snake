@@ -25,7 +25,7 @@ public:
      * \param h Height
      * \param f Fullscreen
      */
-    Game(int g=10, float t=1, unsigned int w=640, unsigned int h=480, bool f=false);
+    Game(int g=10, float t=1, unsigned int w=640, unsigned int h=480, bool f=false, int fruitReward=4);
     /** Default destructor */
     ~Game();
 

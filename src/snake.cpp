@@ -1,12 +1,13 @@
 #include "snake.h"
 #include "game.h"
 
-Snake::Snake(Game* g)
+Snake::Snake(Game* g,int f)
 {
     name = "Snake";
     m_game = g;
     m_dir.x = 1;
     m_dir.y = 0;
+    fruitReward = f;
 
 
     int sc[4] = {SDL_SCANCODE_W, SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D};
@@ -39,12 +40,7 @@ void Snake::collisionCB(GameObject * obj){
     if(!strcmp(obj->getName(), "GameBoard")){
         Reset();
     } else if(!strcmp(obj->getName(), "Fruit")) {
-        //maxLength+=4;
-        if(maxLength == 0){
-            maxLength =4;
-        } else {
-            maxLength*=2;
-        }
+        maxLength+=fruitReward;
     }
 }
 

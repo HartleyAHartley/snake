@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(int g, float t, unsigned int w, unsigned int h, bool f) {
+Game::Game(int g, float t, unsigned int w, unsigned int h, bool f, int fruitReward) {
     lastFrame = Clock::now();
     m_screenWidth = w;
     m_screenHeight = h;
@@ -17,7 +17,7 @@ Game::Game(int g, float t, unsigned int w, unsigned int h, bool f) {
         m_initError = true;
     }
     m_eventHandler = new EventHandler(this);
-    m_gameobjects["snake"] = new Snake(this);
+    m_gameobjects["snake"] = new Snake(this,fruitReward);
     m_gameobjects["gameBoard"] = new GameBoard(this);
     m_gameobjects["fruit"] = new Fruit(this);
 

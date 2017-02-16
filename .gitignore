@@ -38,3 +38,7 @@ obj
 # CodeBlocks Files
 *.depend
 *.layout
+
+#Config Files
+config.ini
+config.ini

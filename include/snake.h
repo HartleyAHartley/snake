@@ -13,7 +13,7 @@ class Snake : public GameObject
 {
     public:
         /** Default constructor */
-        Snake(Game* g);
+        Snake(Game* g,int f);
         /** Default destructor */
         ~Snake();
         /** KeyCallBack */
@@ -40,6 +40,7 @@ class Snake : public GameObject
         void UpdateRect();
         void Reset();
         void TailCollision();
+        int fruitReward;
 };
 
 #endif // SNAKE_H
