@@ -40,7 +40,7 @@ int main( int argc, char * argv[] ) {
         config.close();
     }
 
-    Game * snake = new Game(gridSize,timeScale,width,height,fullscreen,4);
+    Game * snake = new Game(gridSize,timeScale,width,height,fullscreen,fruitReward);
     if(snake->InitError()) {
         return 1;
     }
